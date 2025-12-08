@@ -1,4 +1,5 @@
-import { type JSX } from "react";
+import { type JSX } from 'react';
+import { cn } from '@repo/lib/utils';
 
 export function Code({
   children,
@@ -7,5 +8,14 @@ export function Code({
   children: React.ReactNode;
   className?: string;
 }): JSX.Element {
-  return <code className={className}>{children}</code>;
+  return (
+    <code
+      className={cn(
+        'bg-black/2 px-2 rounded-lg border-gray-200 border font-medium',
+        className
+      )}
+    >
+      {children}
+    </code>
+  );
 }

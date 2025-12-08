@@ -32,16 +32,15 @@
       "name": "web",
       "version": "0.1.0",
       "dependencies": {
-        "@repo/lib": "*",
-        "@repo/ui": "*",
+        "@repo/ui": "workspace:*",
         "next": "^16.0.7",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
       },
       "devDependencies": {
-        "@repo/eslint-config": "*",
-        "@repo/tailwind-config": "*",
-        "@repo/typescript-config": "*",
+        "@repo/eslint-config": "workspace:*",
+        "@repo/tailwind-config": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
         "@tailwindcss/postcss": "^4.1.17",
         "@types/node": "^22.15.3",
         "@types/react": "19.2.2",
@@ -76,6 +75,19 @@
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.4.0",
       },
+      "devDependencies": {
+        "@repo/eslint-config": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
+        "eslint": "^9.39.1",
+        "typescript": "5.9.2",
+      },
+    },
+    "packages/prettier-config": {
+      "name": "@repo/prettier-config",
+      "version": "0.0.0",
+      "devDependencies": {
+        "prettier": "^3.5.1",
+      },
     },
     "packages/tailwind-config": {
       "name": "@repo/tailwind-config",
@@ -97,12 +109,19 @@
         "react-dom": "^19.2.0",
       },
       "devDependencies": {
-        "@repo/eslint-config": "*",
-        "@repo/typescript-config": "*",
+        "@repo/eslint-config": "workspace:*",
+        "@repo/lib": "workspace:*",
+        "@repo/prettier-config": "workspace:*",
+        "@repo/tailwind-config": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
+        "@tailwindcss/postcss": "^4.1.17",
         "@types/node": "^22.15.3",
         "@types/react": "19.2.2",
         "@types/react-dom": "19.2.2",
         "eslint": "^9.39.1",
+        "postcss": "^8.5.6",
+        "prettier": "^3.6.2",
+        "tailwindcss": "^4.1.17",
         "typescript": "5.9.2",
       },
     },
@@ -227,6 +246,8 @@
     "@repo/eslint-config": ["@repo/eslint-config@workspace:packages/eslint-config"],
 
     "@repo/lib": ["@repo/lib@workspace:packages/lib"],
+
+    "@repo/prettier-config": ["@repo/prettier-config@workspace:packages/prettier-config"],
 
     "@repo/tailwind-config": ["@repo/tailwind-config@workspace:packages/tailwind-config"],
 

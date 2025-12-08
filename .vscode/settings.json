@@ -1,0 +1,21 @@
+{
+  "tailwindCSS.experimental.configFile": "packages/tailwind-config/shared-styles.css",
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass"
+  ],
+  "tailwindCSS.files.exclude": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/.turbo/**"
+  ],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}
