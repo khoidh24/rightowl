@@ -1,0 +1,16 @@
+{
+  "name": "@repo/lib",
+  "version": "0.0.0",
+  "exports": {
+    "./utils": "./src/utils.ts"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
