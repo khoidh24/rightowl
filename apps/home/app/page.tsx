@@ -41,7 +41,7 @@ export default function Home() {
         <div className={styles.ctas}>
           <a className={styles.primary} target='_self' href='/contact' rel='noopener noreferrer'>
             <Image className={styles.logo} src='/vercel.svg' alt='Vercel logomark' width={20} height={20} />
-            Deploy now
+            Contact
           </a>
           <a
             href='https://turborepo.com/docs?utm_source'
