@@ -98,8 +98,8 @@ rightowl/
 Create root `.env.local`:
 
 ```env
-NEXT_PUBLIC_APPLY_VISA_DOMAIN="http://localhost:3001"
-NEXT_PUBLIC_VIETNAM_DOMAIN="http://localhost:3000"
+NEXT_PUBLIC_CONTACT_DOMAIN="http://localhost:3001"
+NEXT_PUBLIC_HOME_DOMAIN="http://localhost:3000"
 ```
 
 > Apps automatically load these via `@repo/env-config`.
@@ -158,8 +158,6 @@ flowchart TD
 > 👉 Replace the placeholder below with your GIF:
 > `/docs/workflow.gif`
 
-_(Nếu bạn chưa có GIF, mình có thể tạo một GIF demo từ kiến trúc hoặc flow UI tùy bạn.)_
-
 ## 🌐 Deployment
 
 ### Vercel (Recommended)
@@ -194,17 +192,17 @@ module.exports = {
       script: 'bun',
       args: 'run start',
       cwd: './apps/home',
-      env: { PORT: 3000, NODE_ENV: 'production' }
+      env: { PORT: 3000, NODE_ENV: 'production' },
     },
     {
       name: 'contact',
       script: 'bun',
       args: 'run start',
       cwd: './apps/contact',
-      env: { PORT: 3001, NODE_ENV: 'production' }
-    }
-  ]
-}
+      env: { PORT: 3001, NODE_ENV: 'production' },
+    },
+  ],
+};
 ```
 
 **Start apps:**
