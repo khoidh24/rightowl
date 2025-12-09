@@ -2,6 +2,7 @@
 const nextConfig = {
   transpilePackages: ['@repo/ui'],
   assetPrefix: '/contact-static',
+  crossOrigin: [process.env.NEXT_PUBLIC_CONTACT_DOMAIN, process.env.NEXT_PUBLIC_HOME_DOMAIN],
   async rewrites() {
     return {
       beforeFiles: [

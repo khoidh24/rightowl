@@ -39,7 +39,7 @@ export default function Home() {
         </ol>
 
         <div className={styles.ctas}>
-          <a className={styles.primary} target='_self' href='/contact' rel='noopener noreferrer'>
+          <a className={styles.primary} target='_self' href='/' rel='noopener noreferrer'>
             <Image className={styles.logo} src='/vercel.svg' alt='Vercel logomark' width={20} height={20} />
             Homepage
           </a>

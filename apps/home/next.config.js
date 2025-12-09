@@ -3,6 +3,7 @@ import '@repo/env-config'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@repo/ui'],
+  crossOrigin: [process.env.NEXT_PUBLIC_HOME_DOMAIN],
   async rewrites() {
     return [
       {
