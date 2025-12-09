@@ -46,7 +46,7 @@ This monorepo handles multiple applications and shared packages:
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/khoidh24/rightowl.git
     cd rightowl
     ```
 
