@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "vietnam",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -11,22 +11,20 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
+    "@next/env": "^16.0.8",
+    "@repo/ui": "*",
     "next": "^16.0.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tailwind-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@tailwindcss/postcss": "^4.1.17",
+    "@repo/eslint-config": "*",
+    "@repo/env-config": "*",
+    "@repo/typescript-config": "*",
     "@types/node": "^22.15.3",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17",
     "typescript": "5.9.2"
   }
 }

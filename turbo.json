@@ -1,6 +1,8 @@
 {
   "$schema": "https://turborepo.com/schema.json",
   "ui": "tui",
+  "globalEnv": ["NEXT_PUBLIC_APPLY_VISA_DOMAIN", "NEXT_PUBLIC_VIETNAM_DOMAIN"],
+  "globalDependencies": [".env.local"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

@@ -1,135 +1,204 @@
-# Turborepo starter
+# RightOwl Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+This project is a monorepo built with [Turborepo](https://turbo.build/repo) and [Next.js](https://nextjs.org/).
 
-## Using this example
+## Project Structure
 
-Run the following command:
+This monorepo handles multiple applications and shared packages:
 
-```sh
-npx create-turbo@latest
+```text
+.
+├── apps/
+│   ├── apply-visa/          # Next.js app (Port 3001)
+│   └── vietnam/             # Next.js app (Port 3000)
+├── packages/
+│   ├── env-config/          # Shared env loader utility
+│   ├── eslint-config/       # Shared ESLint configurations
+│   ├── tailwind-config/     # Shared Tailwind CSS configurations
+│   ├── typescript-config/   # Shared typescript configurations
+│   └── ui/                  # Shared React component library
+├── .env.local               # Global environment variables
+├── package.json
+└── turbo.json
 ```
 
-## What's inside?
+### Apps (`apps/`)
 
-This Turborepo includes the following packages/apps:
+- **`vietnam`** (`apps/vietnam`): A Next.js application (Port 3000).
+- **`apply-visa`** (`apps/apply-visa`): A Next.js application (Port 3001).
 
-### Apps and Packages
+### Packages (`packages/`)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- **`@repo/ui`**: Shared React UI component library.
+- **`@repo/env-config`**: Shared environment configuration utility (wraps `@next/env`).
+- **`@repo/eslint-config`**: Shared ESLint configurations.
+- **`@repo/typescript-config`**: Shared `tsconfig.json` configurations.
+- **`@repo/tailwind-config`**: Shared Tailwind CSS configurations.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Prerequisites
 
-### Utilities
+- OS: Windows (as per current environment) / macOS / Linux
+- Runtime: [Bun](https://bun.sh/) (v1.2.22 or higher recommended)
+- Node.js: >= 18
 
-This Turborepo has some additional tools already setup for you:
+## Setup & Installation
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+1.  **Clone the repository:**
 
-### Build
+    ```bash
+    git clone <repository-url>
+    cd rightowl
+    ```
 
-To build all apps and packages, run the following command:
+2.  **Install dependencies:**
+    This project uses `bun` as the package manager.
+    ```bash
+    bun install
+    ```
 
-```
-cd my-turborepo
+## Environment Variables
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
+The project uses a centralized environment variable strategy.
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
+1.  **Global Environment:**
+    Create a `.env.local` file in the **root** directory of the monorepo. This file maintains shared environment variables used across applications.
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+    **File:** `./.env.local`
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+    ```env
+    NEXT_PUBLIC_APPLY_VISA_DOMAIN="http://localhost:3000"
+    NEXT_PUBLIC_VIETNAM_DOMAIN="http://localhost:3001"
+    ```
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+    > **Note:** The `turbo.json` is configured with `globalDependencies: [".env.local"]` and `globalEnv` keys to ensure caching works correctly when these variables change.
 
-### Develop
+2.  **Application Config:**
+    Each app (`vietnam`, `apply-visa`) is configured to load this root `.env.local` file automatically using `@repo/env-config` in `next.config.js`.
 
-To develop all apps and packages, run the following command:
+## Development
 
-```
-cd my-turborepo
+To start the development server for all applications in parallel:
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+```bash
+bun run dev
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+- **`apply-visa`** will be available at [http://localhost:3001](http://localhost:3001)
+- **`vietnam`** will be available at [http://localhost:3000](http://localhost:3000)
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+### Feature: Proxy/Rewrites
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+The `vietnam` app is configured to proxy requests to `apply-visa`:
 
-### Remote Caching
+- `/apply-visa` -> `apply-visa` app root (`/`)
+- `/apply-visa/*` -> `apply-visa` app paths (`/*`)
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## Build
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+To build all apps and packages:
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```bash
+bun run build
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+Turborepo will cache the build artifacts. If you build again without changing anything, it will be instantaneous.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+### Build Specific App
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
+To build only one specific app (e.g., `vietnam`):
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+bun run build --filter=vietnam
 ```
 
-## Useful Links
+## Linting & Type Checking
 
-Learn more about the power of Turborepo:
+- **Lint all:** `bun run lint`
+- **Type check:** `bun run check-types`
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+## Workflows
+
+The project includes custom workflows defined in `.agent/workflows` (if applicable) for automation tasks.
+
+## Troubleshooting
+
+- **Environment Variables not loading:** Ensure you have created the `.env.local` file in the **root** directory.
+- **Rewrite issues:** If redirections between apps aren't working, check the `NEXT_PUBLIC_APPLY_VISA_DOMAIN` variable in `.env.local`. It must contain the protocol (e.g., `http://localhost:3000`, not just `localhost:3000`).
+
+## Key Implementations
+
+- **Root Env Resolution**: Solved the challenge of importing/injecting root `.env.local` variables into apps (using `@repo/env-config`).
+- **Unified Prettier**: Configured a shared Prettier setup for consistent code formatting.
+- **Unified ESLint**: Implemented a shared ESLint configuration that includes `next-eslint` for Next.js best practices.
+- **Shared Styles & VSCode**: Configured shared CSS/Tailwind styles while maintaining full VS Code extension support (IntelliSense/Linting) via `.vscode` settings.
+
+## Deployment
+
+### 1. Vercel (Recommended)
+
+Turborepo is optimized for Vercel.
+
+1.  **Connect Repository**: Connect your GitHub/GitLab repository to Vercel.
+2.  **Create Projects**: You will need to create separate Vercel projects for each app (`vietnam`, `apply-visa`).
+3.  **Configure Project**:
+    - **Root Directory**: Set to `apps/vietnam` or `apps/apply-visa` respectively.
+    - **Build Command**: Vercel will auto-detect `next build` or `turbo build`.
+    - **Environment Variables**: Add the variables from `.env.local` to the Vercel Project Settings (Settings -> Environment Variables).
+      - `NEXT_PUBLIC_APPLY_VISA_DOMAIN`: e.g., `https://apply-visa-production.vercel.app`
+      - `NEXT_PUBLIC_VIETNAM_DOMAIN`: e.g., `https://vietnam-production.vercel.app`
+4.  **Ignore Step**: To speed up builds, Vercel can skip building if the app didn't change.
+    - Command: `npx turbo-ignore`
+
+### 2. AWS EC2 with PM2
+
+To deploy on a standard VPS/EC2 instance using PM2:
+
+1.  **Clone & Install**:
+
+    ```bash
+    git clone <repo_url>
+    cd rightowl
+    bun install
+    ```
+
+2.  **Build**:
+
+    ```bash
+    bun run build
+    ```
+
+3.  **Start with PM2**:
+    Create an `ecosystem.config.js` in the root:
+
+    ```javascript
+    module.exports = {
+      apps: [
+        {
+          name: 'vietnam',
+          script: 'bun',
+          args: 'run start',
+          cwd: './apps/vietnam',
+          env: {
+            PORT: 3000,
+            NODE_ENV: 'production'
+          }
+        },
+        {
+          name: 'apply-visa',
+          script: 'bun',
+          args: 'run start',
+          cwd: './apps/apply-visa',
+          env: {
+            PORT: 3001,
+            NODE_ENV: 'production'
+          }
+        }
+      ]
+    }
+    ```
+
+4.  **Run**:
+    ```bash
+    pm2 start ecosystem.config.js
+    pm2 save
+    ```
