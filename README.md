@@ -1,4 +1,4 @@
-# 🦉 RightOwl Monorepo
+# 🦉 RightOwl Monorepo + Micro-frontend
 
 > A high-performance Turborepo + Next.js monorepo powered by Bun.
 > Build fast, scale easy, share everything.
@@ -29,6 +29,11 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
 ![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier)
+
+## Core Concepts
+
+- [Turborepo](https://turborepo.org/)
+- [Multi-Zones | Next.js](https://nextjs.org/docs/pages/guides/multi-zones)
 
 ## 📁 Project Structure
 
