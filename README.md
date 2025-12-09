@@ -37,8 +37,8 @@
 ```text
 rightowl/
 ├── apps/
-│   ├── apply-visa/          # Next.js App (Port 3001)
-│   └── vietnam/             # Next.js App (Port 3000)
+│   ├── contact/          # Next.js App (Port 3001)
+│   └── home/             # Next.js App (Port 3000)
 ├── packages/
 │   ├── env-config/          # Shared env loader
 │   ├── eslint-config/       # Shared ESLint configs
@@ -52,19 +52,19 @@ rightowl/
 
 ## ⚙️ Applications
 
-### 🇻🇳 `apps/vietnam`
+### 🇻🇳 `apps/home`
 
 **Main website**
 
 - Next.js App (Port 3000)
-- Proxies traffic to apply-visa app
+- Proxies traffic to contact app
 
-### 🛂 `apps/apply-visa`
+### 🛂 `apps/contact`
 
 **Visa application flow**
 
 - Next.js App (Port 3001)
-- Accessed under: `/apply-visa`
+- Accessed under: `/contact`
 
 ## 📦 Shared Packages
 
@@ -109,8 +109,8 @@ Run all apps at once:
 bun run dev
 ```
 
-- **Vietnam**: [http://localhost:3000](http://localhost:3000)
-- **Apply Visa**: [http://localhost:3001](http://localhost:3001)
+- **Home**: [http://localhost:3000](http://localhost:3000)
+- **Contact**: [http://localhost:3001](http://localhost:3001)
 
 ## 🧱 Build
 
@@ -123,7 +123,7 @@ bun run build
 **Build a single app:**
 
 ```bash
-bun run build --filter=vietnam
+bun run build --filter=home
 ```
 
 ## 🧹 Linting & Check
@@ -138,16 +138,16 @@ bun run check-types
 ```mermaid
 flowchart TD
     RootEnv[".env.local"] --> EnvConfig["@repo/env-config"]
-    EnvConfig --> VietnamApp["apps/vietnam"]
-    EnvConfig --> ApplyVisaApp["apps/apply-visa"]
+    EnvConfig --> HomeApp["apps/home"]
+    EnvConfig --> ContactApp["apps/contact"]
 
-    VietnamApp -->|Proxy| ApplyVisaApp
+    HomeApp -->|Proxy| ContactApp
 
-    Packages["packages/*"] --> VietnamApp
-    Packages --> ApplyVisaApp
+    Packages["packages/*"] --> HomeApp
+    Packages --> ContactApp
 
-    Turbo["Turborepo Pipeline"] --> VietnamApp
-    Turbo --> ApplyVisaApp
+    Turbo["Turborepo Pipeline"] --> HomeApp
+    Turbo --> ContactApp
 ```
 
 ## 🎞️ Workflow GIF
@@ -163,15 +163,15 @@ _(Nếu bạn chưa có GIF, mình có thể tạo một GIF demo từ kiến tr
 
 Each app = 1 Vercel Project.
 
-| App            | Root Directory    |
-| :------------- | :---------------- |
-| **vietnam**    | `apps/vietnam`    |
-| **apply-visa** | `apps/apply-visa` |
+| App         | Root Directory |
+| :---------- | :------------- |
+| **home**    | `apps/home`    |
+| **contact** | `apps/contact` |
 
 **Add environment variables:**
 
-- `NEXT_PUBLIC_APPLY_VISA_DOMAIN="https://apply-visa.vercel.app"`
-- `NEXT_PUBLIC_VIETNAM_DOMAIN="https://vietnam.vercel.app"`
+- `NEXT_PUBLIC_APPLY_VISA_DOMAIN="https://contact.vercel.app"`
+- `NEXT_PUBLIC_VIETNAM_DOMAIN="https://home.vercel.app"`
 
 **Turbo Ignore**
 
@@ -187,17 +187,17 @@ npx turbo-ignore
 module.exports = {
   apps: [
     {
-      name: 'vietnam',
+      name: 'home',
       script: 'bun',
       args: 'run start',
-      cwd: './apps/vietnam',
+      cwd: './apps/home',
       env: { PORT: 3000, NODE_ENV: 'production' }
     },
     {
-      name: 'apply-visa',
+      name: 'contact',
       script: 'bun',
       args: 'run start',
-      cwd: './apps/apply-visa',
+      cwd: './apps/contact',
       env: { PORT: 3001, NODE_ENV: 'production' }
     }
   ]
