@@ -1,204 +1,245 @@
-# RightOwl Monorepo
+# 🦉 RightOwl Monorepo
 
-This project is a monorepo built with [Turborepo](https://turbo.build/repo) and [Next.js](https://nextjs.org/).
+> A high-performance Turborepo + Next.js monorepo powered by Bun.
+> Build fast, scale easy, share everything.
 
-## Project Structure
+## 📚 Table of Contents
 
-This monorepo handles multiple applications and shared packages:
+- [🦉 RightOwl Monorepo](#-rightowl-monorepo)
+- [🏷️ Badges](#️-badges)
+- [📁 Project Structure](#-project-structure)
+- [⚙️ Applications](#️-applications)
+- [📦 Shared Packages](#-shared-packages)
+- [🚀 Getting Started](#-getting-started)
+- [🌱 Environment Variables](#-environment-variables)
+- [🧪 Development](#-development)
+- [🧱 Build](#-build)
+- [🧹 Linting & Check](#-linting--check)
+- [🏗️ Architecture Diagram](#️-architecture-diagram-mermaid)
+- [🎞️ Workflow GIF](#️-workflow-gif)
+- [🌐 Deployment](#-deployment)
+- [🛠 Troubleshooting](#-troubleshooting)
+- [🎨 Theme Dark/Light](#-theme-darklight)
+- [📄 License](#-license)
+
+## 🏷️ Badges
+
+![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js)
+![Turborepo](https://img.shields.io/badge/Turborepo-0C0606?style=for-the-badge&logo=turborepo)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier)
+
+## 📁 Project Structure
 
 ```text
-.
+rightowl/
 ├── apps/
-│   ├── apply-visa/          # Next.js app (Port 3001)
-│   └── vietnam/             # Next.js app (Port 3000)
+│   ├── apply-visa/          # Next.js App (Port 3001)
+│   └── vietnam/             # Next.js App (Port 3000)
 ├── packages/
-│   ├── env-config/          # Shared env loader utility
-│   ├── eslint-config/       # Shared ESLint configurations
-│   ├── tailwind-config/     # Shared Tailwind CSS configurations
-│   ├── typescript-config/   # Shared typescript configurations
-│   └── ui/                  # Shared React component library
-├── .env.local               # Global environment variables
-├── package.json
-└── turbo.json
+│   ├── env-config/          # Shared env loader
+│   ├── eslint-config/       # Shared ESLint configs
+│   ├── tailwind-config/     # Shared Tailwind v4 configs
+│   ├── typescript-config/   # Shared tsconfig presets
+│   └── ui/                  # Shared React UI Library
+├── .env.local
+├── turbo.json
+└── package.json
 ```
 
-### Apps (`apps/`)
+## ⚙️ Applications
 
-- **`vietnam`** (`apps/vietnam`): A Next.js application (Port 3000).
-- **`apply-visa`** (`apps/apply-visa`): A Next.js application (Port 3001).
+### 🇻🇳 `apps/vietnam`
 
-### Packages (`packages/`)
+**Main website**
 
-- **`@repo/ui`**: Shared React UI component library.
-- **`@repo/env-config`**: Shared environment configuration utility (wraps `@next/env`).
-- **`@repo/eslint-config`**: Shared ESLint configurations.
-- **`@repo/typescript-config`**: Shared `tsconfig.json` configurations.
-- **`@repo/tailwind-config`**: Shared Tailwind CSS configurations.
+- Next.js App (Port 3000)
+- Proxies traffic to apply-visa app
 
-## Prerequisites
+### 🛂 `apps/apply-visa`
 
-- OS: Windows (as per current environment) / macOS / Linux
-- Runtime: [Bun](https://bun.sh/) (v1.2.22 or higher recommended)
-- Node.js: >= 18
+**Visa application flow**
 
-## Setup & Installation
+- Next.js App (Port 3001)
+- Accessed under: `/apply-visa`
 
-1.  **Clone the repository:**
+## 📦 Shared Packages
 
-    ```bash
-    git clone https://github.com/khoidh24/rightowl.git
-    cd rightowl
-    ```
+| Package                   | Description                          |
+| :------------------------ | :----------------------------------- |
+| `@repo/ui`                | Shared React UI components           |
+| `@repo/env-config`        | Loads root `.env.local` for all apps |
+| `@repo/eslint-config`     | Shared ESLint base                   |
+| `@repo/typescript-config` | Shared tsconfig                      |
+| `@repo/tailwind-config`   | Tailwind v4 centralized config       |
 
-2.  **Install dependencies:**
-    This project uses `bun` as the package manager.
-    ```bash
-    bun install
-    ```
+## 🚀 Getting Started
 
-## Environment Variables
+1. **Clone repo**
 
-The project uses a centralized environment variable strategy.
+   ```bash
+   git clone https://github.com/khoidh24/rightowl.git
+   cd rightowl
+   ```
 
-1.  **Global Environment:**
-    Create a `.env.local` file in the **root** directory of the monorepo. This file maintains shared environment variables used across applications.
+2. **Install dependencies (via Bun)**
+   ```bash
+   bun install
+   ```
 
-    **File:** `./.env.local`
+## 🌱 Environment Variables
 
-    ```env
-    NEXT_PUBLIC_APPLY_VISA_DOMAIN="http://localhost:3000"
-    NEXT_PUBLIC_VIETNAM_DOMAIN="http://localhost:3001"
-    ```
+Create root `.env.local`:
 
-    > **Note:** The `turbo.json` is configured with `globalDependencies: [".env.local"]` and `globalEnv` keys to ensure caching works correctly when these variables change.
+```env
+NEXT_PUBLIC_APPLY_VISA_DOMAIN="http://localhost:3001"
+NEXT_PUBLIC_VIETNAM_DOMAIN="http://localhost:3000"
+```
 
-2.  **Application Config:**
-    Each app (`vietnam`, `apply-visa`) is configured to load this root `.env.local` file automatically using `@repo/env-config` in `next.config.js`.
+> Apps automatically load these via `@repo/env-config`.
 
-## Development
+## 🧪 Development
 
-To start the development server for all applications in parallel:
+Run all apps at once:
 
 ```bash
 bun run dev
 ```
 
-- **`apply-visa`** will be available at [http://localhost:3001](http://localhost:3001)
-- **`vietnam`** will be available at [http://localhost:3000](http://localhost:3000)
+- **Vietnam**: [http://localhost:3000](http://localhost:3000)
+- **Apply Visa**: [http://localhost:3001](http://localhost:3001)
 
-### Feature: Proxy/Rewrites
+## 🧱 Build
 
-The `vietnam` app is configured to proxy requests to `apply-visa`:
-
-- `/apply-visa` -> `apply-visa` app root (`/`)
-- `/apply-visa/*` -> `apply-visa` app paths (`/*`)
-
-## Build
-
-To build all apps and packages:
+**Build everything:**
 
 ```bash
 bun run build
 ```
 
-Turborepo will cache the build artifacts. If you build again without changing anything, it will be instantaneous.
-
-### Build Specific App
-
-To build only one specific app (e.g., `vietnam`):
+**Build a single app:**
 
 ```bash
 bun run build --filter=vietnam
 ```
 
-## Linting & Type Checking
+## 🧹 Linting & Check
 
-- **Lint all:** `bun run lint`
-- **Type check:** `bun run check-types`
+```bash
+bun run lint
+bun run check-types
+```
 
-## Workflows
+## 🏗️ Architecture Diagram (Mermaid)
 
-The project includes custom workflows defined in `.agent/workflows` (if applicable) for automation tasks.
+```mermaid
+flowchart TD
+    RootEnv[".env.local"] --> EnvConfig["@repo/env-config"]
+    EnvConfig --> VietnamApp["apps/vietnam"]
+    EnvConfig --> ApplyVisaApp["apps/apply-visa"]
 
-## Troubleshooting
+    VietnamApp -->|Proxy| ApplyVisaApp
 
-- **Environment Variables not loading:** Ensure you have created the `.env.local` file in the **root** directory.
-- **Rewrite issues:** If redirections between apps aren't working, check the `NEXT_PUBLIC_APPLY_VISA_DOMAIN` variable in `.env.local`. It must contain the protocol (e.g., `http://localhost:3000`, not just `localhost:3000`).
+    Packages["packages/*"] --> VietnamApp
+    Packages --> ApplyVisaApp
 
-## Key Implementations
+    Turbo["Turborepo Pipeline"] --> VietnamApp
+    Turbo --> ApplyVisaApp
+```
 
-- **Root Env Resolution**: Solved the challenge of importing/injecting root `.env.local` variables into apps (using `@repo/env-config`).
-- **Unified Prettier**: Configured a shared Prettier setup for consistent code formatting.
-- **Unified ESLint**: Implemented a shared ESLint configuration that includes `next-eslint` for Next.js best practices.
-- **Shared Styles & VSCode**: Configured shared CSS/Tailwind styles while maintaining full VS Code extension support (IntelliSense/Linting) via `.vscode` settings.
+## 🎞️ Workflow GIF
 
-## Deployment
+> 👉 Replace the placeholder below with your GIF:
+> `/docs/workflow.gif`
 
-### 1. Vercel (Recommended)
+_(Nếu bạn chưa có GIF, mình có thể tạo một GIF demo từ kiến trúc hoặc flow UI tùy bạn.)_
 
-Turborepo is optimized for Vercel.
+## 🌐 Deployment
 
-1.  **Connect Repository**: Connect your GitHub/GitLab repository to Vercel.
-2.  **Create Projects**: You will need to create separate Vercel projects for each app (`vietnam`, `apply-visa`).
-3.  **Configure Project**:
-    - **Root Directory**: Set to `apps/vietnam` or `apps/apply-visa` respectively.
-    - **Build Command**: Vercel will auto-detect `next build` or `turbo build`.
-    - **Environment Variables**: Add the variables from `.env.local` to the Vercel Project Settings (Settings -> Environment Variables).
-      - `NEXT_PUBLIC_APPLY_VISA_DOMAIN`: e.g., `https://apply-visa-production.vercel.app`
-      - `NEXT_PUBLIC_VIETNAM_DOMAIN`: e.g., `https://vietnam-production.vercel.app`
-4.  **Ignore Step**: To speed up builds, Vercel can skip building if the app didn't change.
-    - Command: `npx turbo-ignore`
+### Vercel (Recommended)
 
-### 2. AWS EC2 with PM2
+Each app = 1 Vercel Project.
 
-To deploy on a standard VPS/EC2 instance using PM2:
+| App            | Root Directory    |
+| :------------- | :---------------- |
+| **vietnam**    | `apps/vietnam`    |
+| **apply-visa** | `apps/apply-visa` |
 
-1.  **Clone & Install**:
+**Add environment variables:**
 
-    ```bash
-    git clone <repo_url>
-    cd rightowl
-    bun install
-    ```
+- `NEXT_PUBLIC_APPLY_VISA_DOMAIN="https://apply-visa.vercel.app"`
+- `NEXT_PUBLIC_VIETNAM_DOMAIN="https://vietnam.vercel.app"`
 
-2.  **Build**:
+**Turbo Ignore**
 
-    ```bash
-    bun run build
-    ```
+```bash
+npx turbo-ignore
+```
 
-3.  **Start with PM2**:
-    Create an `ecosystem.config.js` in the root:
+### AWS EC2 / VPS + PM2
 
-    ```javascript
-    module.exports = {
-      apps: [
-        {
-          name: 'vietnam',
-          script: 'bun',
-          args: 'run start',
-          cwd: './apps/vietnam',
-          env: {
-            PORT: 3000,
-            NODE_ENV: 'production'
-          }
-        },
-        {
-          name: 'apply-visa',
-          script: 'bun',
-          args: 'run start',
-          cwd: './apps/apply-visa',
-          env: {
-            PORT: 3001,
-            NODE_ENV: 'production'
-          }
-        }
-      ]
+**`ecosystem.config.js`**:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: 'vietnam',
+      script: 'bun',
+      args: 'run start',
+      cwd: './apps/vietnam',
+      env: { PORT: 3000, NODE_ENV: 'production' }
+    },
+    {
+      name: 'apply-visa',
+      script: 'bun',
+      args: 'run start',
+      cwd: './apps/apply-visa',
+      env: { PORT: 3001, NODE_ENV: 'production' }
     }
-    ```
+  ]
+}
+```
 
-4.  **Run**:
-    ```bash
-    pm2 start ecosystem.config.js
-    pm2 save
-    ```
+**Start apps:**
+
+```bash
+pm2 start ecosystem.config.js
+pm2 save
+```
+
+## 🛠 Troubleshooting
+
+### ❌ Env not loading?
+
+- ✔ Place `.env.local` in root
+- ✔ Ensure `import "@repo/env-config"` exists in `next.config.js`
+
+### ❌ Rewrite/Proxy broken?
+
+- ✔ Env domain must include protocol:
+
+| Correct                 | Incorrect        |
+| :---------------------- | :--------------- |
+| `http://localhost:3000` | `localhost:3000` |
+
+## 🎨 Theme Dark/Light
+
+Add this block to GitHub README to auto-switch theme:
+
+```html
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./docs/banner-dark.png" />
+  <source media="(prefers-color-scheme: light)" srcset="./docs/banner-light.png" />
+  <img alt="RightOwl Banner" src="./docs/banner-light.png" />
+</picture>
+```
+
+> I can design `banner-dark.png` / `banner-light.png` nếu bạn muốn.
+
+## 📄 License
+
+MIT © RightOwl Team
