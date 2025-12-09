@@ -5,8 +5,6 @@
 
 ## 📚 Table of Contents
 
-- [🦉 RightOwl Monorepo](#-rightowl-monorepo)
-- [🏷️ Badges](#️-badges)
 - [📁 Project Structure](#-project-structure)
 - [⚙️ Applications](#️-applications)
 - [📦 Shared Packages](#-shared-packages)
@@ -22,7 +20,7 @@
 - [🎨 Theme Dark/Light](#-theme-darklight)
 - [📄 License](#-license)
 
-## 🏷️ Badges
+#
 
 ![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun)
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js)
