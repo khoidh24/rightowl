@@ -226,20 +226,6 @@ pm2 save
 | :---------------------- | :--------------- |
 | `http://localhost:3000` | `localhost:3000` |
 
-## 🎨 Theme Dark/Light
-
-Add this block to GitHub README to auto-switch theme:
-
-```html
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./docs/banner-dark.png" />
-  <source media="(prefers-color-scheme: light)" srcset="./docs/banner-light.png" />
-  <img alt="RightOwl Banner" src="./docs/banner-light.png" />
-</picture>
-```
-
-> I can design `banner-dark.png` / `banner-light.png` nếu bạn muốn.
-
 ## 📄 License
 
 MIT © RightOwl Team
