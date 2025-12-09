@@ -30,7 +30,7 @@
 ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
 ![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier)
 
-## Core Concepts
+## 💎 Core Concepts
 
 - [Turborepo](https://turborepo.org/)
 - [Multi-Zones | Next.js](https://nextjs.org/docs/pages/guides/multi-zones)
