@@ -171,8 +171,8 @@ Each app = 1 Vercel Project.
 
 **Add environment variables:**
 
-- `NEXT_PUBLIC_APPLY_VISA_DOMAIN="https://contact.vercel.app"`
-- `NEXT_PUBLIC_VIETNAM_DOMAIN="https://home.vercel.app"`
+- `NEXT_PUBLIC_CONTACT_DOMAIN="https://contact.vercel.app"`
+- `NEXT_PUBLIC_HOME_DOMAIN="https://home.vercel.app"`
 
 **Turbo Ignore**
 
